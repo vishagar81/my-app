@@ -104,10 +104,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/developit/preact-boilerplate.git"
+    "url": "git+https://github.com/vishagar81/my-app.git"
   },
   "bugs": {
-    "url": "https://github.com/developit/preact-boilerplate/issues"
+    "url": "https://github.com/vishagar81/my-app.git/issues"
   },
-  "homepage": "https://github.com/developit/preact-boilerplate#readme"
+  "homepage": "https://github.com/vishagar81/my-app.git/issues#readme"
 }
