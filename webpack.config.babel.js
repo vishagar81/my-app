@@ -5,6 +5,8 @@ import autoprefixer from 'autoprefixer';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import OfflinePlugin from 'offline-plugin';
 import path from 'path';
+import WebpackBundleAnalyzer from 'webpack-bundle-analyzer';
+const BundleAnalyzer = WebpackBundleAnalyzer.BundleAnalyzerPlugin;
 const ENV = process.env.NODE_ENV || 'development';
 
 const CSS_MAPS = ENV!=='production';
@@ -115,6 +117,15 @@ module.exports = {
 		]
 	},
 	plugins: ([
+		new BundleAnalyzer({
+			analyzerMode: 'server',
+			analyzerPort: 8888,
+			reportFilename: 'report.html',
+			openAnalyzer: true,
+			generateStatsFile: true,
+			statsFilename: 'stats.json',
+			statsOptions: null
+		}),
 		new webpack.NoEmitOnErrorsPlugin(),
 		new ExtractTextPlugin({
 			filename: 'style.css',
