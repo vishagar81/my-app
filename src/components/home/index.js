@@ -18,10 +18,10 @@ export default class Home extends Component {
 	}
 
 	render(){
+
 		return (
 			<div class={style.home}>
 				<Location setLatLon={this.setLatLon}/>
-				<Weather latLon={this.state.geoLatLon}/>
 				<Weather latLon={this.state.geoLatLon}/>
 			</div>
 		);

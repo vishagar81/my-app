@@ -10,6 +10,23 @@ export default class Location extends Component {
 		};
 		this.handleSelect = this.handleSelect.bind(this);
 		this.handleChange = this.handleChange.bind(this);
+		this.setInitialPosition = this.setInitialPosition.bind(this);
+	}
+
+	componentDidMount(){
+		this.getCurrentLocation();
+	}
+
+	getCurrentLocation(){
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(this.setInitialPosition);
+		} else {
+			console.warning("Geolocation is not supported by this browser.");
+		}
+	}
+
+	setInitialPosition(position){
+		this.props.setLatLon(position.coords.latitude, position.coords.longitude);
 	}
 
 	handleSelect(address){
@@ -17,13 +34,12 @@ export default class Location extends Component {
 		geocodeByAddress(address)
 			.then((results) => getLatLng(results[0]))
 			.then(({ lat, lng }) => {
-				console.log('Success Yay', { lat, lng });
 				this.props.setLatLon(lat, lng); // pass the lat/lng values to parent
-				this.setState({ geocodeResults: this.renderGeocodeSuccess(lat, lng)});
+				// this.setState({ geocodeResults: this.renderGeocodeSuccess(lat, lng)});
 			})
 			.catch((error) => {
 				console.log('Oh no!', error);
-				this.setState({ geocodeResults: this.renderGeocodeFailure(error) });
+				// this.setState({ geocodeResults: this.renderGeocodeFailure(error) });
 			});
 	}
 
@@ -68,6 +84,10 @@ export default class Location extends Component {
 			googleLogo: false
 		};
 
+		const cssClasses = {
+			autocompleteContainer: 'autocomplete-container'
+		};
+
 		return (
 			<div>
 				<PlacesAutocomplete
@@ -75,7 +95,8 @@ export default class Location extends Component {
 					options={options}
 					autoCompleteItem={AutocompleteItem}
 					onSelect={this.handleSelect}
-					onEnterKeyDown={this.handleSelect} />
+					onEnterKeyDown={this.handleSelect}
+					classNames={cssClasses} />
 				{this.state.geocodeResults}
 			</div>
 		);

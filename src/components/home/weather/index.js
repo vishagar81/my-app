@@ -9,35 +9,17 @@ export default class Weather extends Component {
 			main:{},
 			wind:{},
 			name,
-			lat: this.props.latLon.lat,
-			lon: this.props.latLon.lon
+			lat: 0,
+			lon: 0
 		};
-		this.setInitialPosition = this.setInitialPosition.bind(this);
-	}
-
-	getCurrentLocation(){
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(this.setInitialPosition);
-		} else {
-			console.warning("Geolocation is not supported by this browser.");
-		}
-	}
-
-	setInitialPosition(position){
-		this.setState({ lat: position.coords.latitude, lon: position.coords.longitude});
-	}
-
-	componentWillUpdate(nextProps, nextState){
-		this.setState({lat: nextProps.latLon.lat, lon: nextProps.latLon.lon});
 	}
 
 	componentDidMount(){
-		if (this.props.latLon.lat === undefined && this.props.latLon.lon === undefined){
-			this.getCurrentLocation();
-		}
-		else {
-			this.getWeatherInfo(this.state.lat, this.state.lon);
-		}
+		this.getWeatherInfo(this.props.latLon.lat, this.props.latLon.lon);
+	}
+
+	componentWillReceiveProps(nextProps){
+		this.getWeatherInfo(nextProps.latLon.lat, nextProps.latLon.lon);
 	}
 
 	getWeatherInfo(lat, lon){
@@ -54,7 +36,6 @@ export default class Weather extends Component {
 		let weatherDescription = '';
 		let imgSrc = '';
 		let currentTemp = '';
-		this.getWeatherInfo(this.state.lat, this.state.lon);
 
 		if (this.state.weather[0]){
 			weatherDescription = this.state.weather[0].description;

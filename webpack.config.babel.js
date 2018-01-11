@@ -119,10 +119,10 @@ module.exports = {
 	plugins: ([
 		new BundleAnalyzer({
 			analyzerMode: 'server',
-			analyzerPort: 8888,
+			analyzerPort: 8889,
 			reportFilename: 'report.html',
-			openAnalyzer: true,
-			generateStatsFile: true,
+			openAnalyzer: false,
+			generateStatsFile: false,
 			statsFilename: 'stats.json',
 			statsOptions: null
 		}),
